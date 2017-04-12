@@ -6,12 +6,25 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" href="css/dropload.css">
 </head>
 <style type="text/css">
+body
+{
+    margin: 0;
+    padding: 0;
+}
+h1
+{
+    margin: 0;
+    padding: 0;
+}
 .starbuck-logo
 {
     width: 10rem;
     height: 8rem;
+    margin: 1rem;
+    border-radius: 0.5rem;
 }
 .fleft
 {
@@ -22,29 +35,78 @@
     clear: both;
 }
 @media (min-device-width: 375px) and (max-device-width:667px) {
-    
+.storemessage
+{
+    margin-top: 4px;
+}
+.starbuck-logo
+{
+    width: 5rem;
+    height: 4rem;
+    margin: 0.5rem;
+    border-radius: 0.5rem;
+}
+.storename
+{
+    font-size: 18px;
+    color: #009DE8;
+}
+.location 
+{
+    margin-top: 4px;
+}
 }
 #starbuck-1
 {
-    background: red;
+    background: #fff;
 }
+.storename
+{
+    color: #009DE8;
+    overflow: hidden;
+}
+.storemessage
+{
+    margin-top: 1rem;
+    max-width: 70%;
+}
+/*.location 
+{
+    margin-top: 3rem;
+}*/
+.location a
+{
+    overflow: hidden;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    font-weight: 800;
+}
+.location img
+{
+    margin-left: 0.5rem;
+}
+.divider
+{
+    background: #FAFAFA;
+    height: 4px;
+}
+.starbuck-cell
+{
+    background: #fff;
+}
+/*.dropload-down
+{
+    margin-top: -50px;
+}*/
 </style>
 
 <body>
-<div id="starbuck-1">
-    <a class="fleft" href=""><img class="starbuck-logo" src="images/starbucks-logo.png"></a>
-    <div>
-        <div>
-            <span>26th & Broadway</span><span>New York</span>
-        </div>
-        <div>
-            <a href="">1140 Broadway<img src="" alt=""></a>
-        </div>
-    </div>
-    <a href=""><img src="" alt=""></a>
-    <div class="clearfloat"></div>
+<div id="maincontainer">
+    
 </div>
 <script src="js/jquery.min.js" ></script>
+<script src="js/dropload.js"></script>
 <script src="js/index.js" ></script>
 </body>
 
