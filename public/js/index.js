@@ -1,26 +1,14 @@
 var currentPage = 0;
 $(document).ready(function(){
-    // var currentLocation = {latitude: 40.743827, longitude: -73.989015};
-    // var sortedData = getStarbuckList(function(data){
-    //     newdata = data.map(function(ele){
-    //         var distanceToCurrentLocation = distance(currentLocation, ele.location);
-    //         ele["distance"] = distanceToCurrentLocation;
-    //         return ele;
-    //     });
-    //     newdata.sort(function(elea, eleb){
-    //         return elea.distance - eleb.distance;
-    //     });
-
-    //     newdata.forEach(function(data){
-    //         var starbuckCell = new Starbuck(data);
-    //         starbuckCell.appendTo("body");
-    //     });
-
-    // });
-    // getStarbuckList(1, function(data){
-    //     setData(data);
-    // });
-    setDropLoad();
+    var currentLocation = {latitude: 40.743827, longitude: -73.989015};
+    if ("geolocation" in navigator) {
+    /* user location available */
+        navigator.geolocation.getCurrentPosition(function(position){
+            currentLocation.latitude = position.coords.latitude;
+            currentLocation.longitude = position.coords.longitude;
+        });
+    }
+    setDropLoad(currentLocation);
 });
 function setData(data){
     data.forEach(function(ele){
@@ -28,12 +16,13 @@ function setData(data){
         starbuckCell.appendTo("#maincontainer");
     });
 }
-function setDropLoad()
+function setDropLoad(userLocation)
 {
     $("#maincontainer").dropload({
         scrollArea: window,
         loadDownFn: function(me){
-            getStarbuckList(currentPage + 1, function(data){
+            var params = {page:currentPage + 1, latitude:userLocation.latitude, longitude:userLocation.longitude};
+            getStarbuckList(params, function(data){
                 setData(data);
                 me.resetload();
             });
@@ -43,11 +32,11 @@ function setDropLoad()
         }
     });
 }
-function getStarbuckList(page, callback){
+function getStarbuckList(params, callback){
     $.ajax({
         url: "http://localhost:3000/starbucks",
         type: "GET",
-        data: {"page":page},
+        data: params,
         contentType: "application/x-www-form-urlencoded; charset=utf-8",
         dataType: "json",
         success: function(data){
@@ -55,7 +44,7 @@ function getStarbuckList(page, callback){
                 return;
             }
             callback(data);
-            currentPage = page;
+            currentPage = params.page;
         }
     });
 }
@@ -80,24 +69,7 @@ function Starbuck(data){
 
     return starbuckCell;
 }
-/**
- * Caculate the distance between two coordinate
- */
 
-function distance(coordinateX, coordinateY){
-    var lat1 = coordinateX.latitude;
-    var lng1 = coordinateX.longitude;
-    var lat2 = coordinateY.latitude;
-    var lng2 = coordinateY.longitude;
-    var radLat1 = lat1 * Math.PI / 180.0;
-    var radLat2 = lat2 * Math.PI / 180.0;
-    var a = radLat1 - radLat2;
-    var b = lng1 * Math.PI / 180.0 - lng2 * Math.PI / 180.0;
-    var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
-    s = s * 6378.137;
-    s = Math.round(s * 10000) / 10000;
-    return s;
-}
 
 
 
